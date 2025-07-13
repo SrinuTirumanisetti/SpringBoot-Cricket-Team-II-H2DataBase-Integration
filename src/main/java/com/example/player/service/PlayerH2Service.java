@@ -34,4 +34,24 @@ public class PlayerH2Service implements PlayerRepository {
         Collection<Player> playerList = db.query("SELECT * FROM TEAM", new PlayerRowMapper());
         return new ArrayList<>(playerList);
     }
+
+    @Override
+    public Player addPlayer(Player player) {
+        db.update(
+            "INSERT INTO TEAM(playerName, jerseyNumber, role) VALUES (?, ?, ?)",
+            player.getPlayerName(),
+            player.getJerseyNumber(),
+            player.getRole()
+        );
+
+        Player savedPlayer = db.queryForObject(
+            "SELECT * FROM TEAM WHERE playerName = ? AND jerseyNumber = ? AND role = ?",
+            new PlayerRowMapper(),
+            player.getPlayerName(),
+            player.getJerseyNumber(),
+            player.getRole()
+        );
+
+        return savedPlayer;
+    }
 }
