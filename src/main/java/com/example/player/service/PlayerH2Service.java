@@ -13,13 +13,25 @@
 
 package com.example.player.service;
 
-import com.example.player.repository.PlayerReposistory;
+import com.example.player.repository.PlayerRepository;
 import com.example.player.model.Player;
+import com.example.player.model.PlayerRowMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.jdbc.core.JdbcTemplate;
 
+import java.util.ArrayList;
+import java.util.Collection;
 
-class PlayerH2Service extends PlayerReposistory{
+@Service
+public class PlayerH2Service implements PlayerRepository {
 
-    public ArrayList<Player> getPlayer(){
+    @Autowired
+    private JdbcTemplate db;
 
+    @Override
+    public ArrayList<Player> getPlayers() {
+        Collection<Player> playerList = db.query("SELECT * FROM TEAM", new PlayerRowMapper());
+        return new ArrayList<>(playerList);
     }
 }

@@ -1,1 +1,9 @@
 // Write your code here
+package com.example.player.repository;
+
+import java.util.ArrayList;
+import com.example.player.model.Player;
+
+public interface PlayerRepository {
+    ArrayList<Player> getPlayers();
+}
