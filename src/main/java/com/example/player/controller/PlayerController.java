@@ -29,4 +29,9 @@ public class PlayerController{
     public Player addPlayer(@RequestBody Player player){
         return service.addPlayer(player);
     }
+
+    @GetMapping("/players/{playerId}")
+    public Player getPlayer(@PathVariable("playerId") int playerId){
+        return service.getPlayer(playerId);
+    }
 }

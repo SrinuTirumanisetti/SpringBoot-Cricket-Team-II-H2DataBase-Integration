@@ -19,6 +19,8 @@ import com.example.player.model.PlayerRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.web.server.ResponseStatusException;
+import org.springframework.http.HttpStatus;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -53,5 +55,16 @@ public class PlayerH2Service implements PlayerRepository {
         );
 
         return savedPlayer;
+    }
+
+    @Override
+    public Player getPlayer(int playerId){
+        try{
+            Player player = db.queryForObject("SELECT * FROM TEAM WHERE playerId = ?",new PlayerRowMapper(),playerId);
+            return player;
+        }
+        catch(Exception e){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
     }
 }
