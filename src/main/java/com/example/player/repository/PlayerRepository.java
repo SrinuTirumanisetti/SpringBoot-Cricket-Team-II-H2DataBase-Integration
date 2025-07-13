@@ -9,4 +9,5 @@ public interface PlayerRepository {
     Player addPlayer(Player player);
     Player getPlayer(int playerId);
     Player updatePlayer(int playerId,Player player);
+    void deletePlayer(int playerId);
 }

@@ -83,4 +83,10 @@ public class PlayerH2Service implements PlayerRepository {
         return getPlayer(playerId);  
     }
 
+    @Override
+    public void deletePlayer(int playerId){
+        Player player = getPlayer(playerId);
+        db.update("DELETE FROM TEAM WHERE playerId=?",playerId);
+    }
+
 }
