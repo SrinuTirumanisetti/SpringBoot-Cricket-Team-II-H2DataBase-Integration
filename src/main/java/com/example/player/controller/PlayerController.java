@@ -34,4 +34,9 @@ public class PlayerController{
     public Player getPlayer(@PathVariable("playerId") int playerId){
         return service.getPlayer(playerId);
     }
+
+    @PutMapping("/players/{playerId}")
+    public Player updatePlayer(@PathVariable("playerId") int playerId,@RequestBody Player player){
+        return service.updatePlayer(playerId,player);
+    }
 }

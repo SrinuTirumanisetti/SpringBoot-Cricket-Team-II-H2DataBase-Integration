@@ -67,4 +67,20 @@ public class PlayerH2Service implements PlayerRepository {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
     }
+
+    @Override
+    public Player updatePlayer(int playerId, Player player) {
+        Player existingPlayer = getPlayer(playerId);
+
+        db.update(
+            "UPDATE TEAM SET playerName = ?, jerseyNumber = ?, role = ? WHERE playerId = ?",
+            player.getPlayerName(),
+            player.getJerseyNumber(),
+            player.getRole(),
+            playerId
+        );
+
+        return getPlayer(playerId);  
+    }
+
 }
